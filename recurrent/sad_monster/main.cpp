@@ -7,8 +7,10 @@ using namespace std;
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
+
   int n;
   double a, b, c, d;
+
   cin >> n;
   cin >> a >> b >> c >> d;
 
