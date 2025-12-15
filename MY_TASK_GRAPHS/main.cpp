@@ -4,24 +4,24 @@
 
 using namespace std;
 
-vector<int> parentArr;
-vector<int> distArr;
+vector<int> parents;
+vector<int> dist;
 
 int find(int x) {
   int cur;
   int root = cur = x;
   int acc = 0;
-  while (parentArr[root] != root) {
-    acc += distArr[root];
-    root = parentArr[root];
+  while (parents[root] != root) {
+    acc += dist[root];
+    root = parents[root];
   }
   int curAcc = 0;
-  while (parentArr[cur] != cur) {
-    int p = parentArr[cur];
-    int oldDist = distArr[cur];
+  while (parents[cur] != cur) {
+    int p = parents[cur];
+    int oldDist = dist[cur];
 
-    parentArr[cur] = root;
-    distArr[cur] = acc - curAcc;
+    parents[cur] = root;
+    dist[cur] = acc - curAcc;
     curAcc += oldDist;
     cur = p;
   }
@@ -39,12 +39,12 @@ int main() {
   if (!(fin >> n))
     return 0;
 
-  parentArr.assign(n + 1, 0);
-  distArr.assign(n + 1, 0);
+  parents.assign(n + 1, 0);
+  dist.assign(n + 1, 0);
 
   for (int i = 0; i <= n; ++i) {
-    parentArr[i] = i;
-    distArr[i] = 0;
+    parents[i] = i;
+    dist[i] = 0;
   }
 
   while (true) {
@@ -58,12 +58,12 @@ int main() {
       int i;
       fin >> i;
       find(i);
-      fout << distArr[i] << '\n';
+      fout << dist[i] << '\n';
     } else if (c == 'I') {
       int i, j;
       fin >> i >> j;
-      parentArr[i] = j;
-      distArr[i] = abs(i - j) % 1000;
+      parents[i] = j;
+      dist[i] = abs(i - j) % 1000;
     }
   }
 
